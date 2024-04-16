@@ -1,25 +1,31 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Spotify-like Image Gallery</title>
-  <link href="styles.css" rel="stylesheet">
-</head>
-<body>
+  <html lang="pt-BR">
+  <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Cadastro de Imagens</title>
+      <link href="styles.css" rel="stylesheet">
+  </head>
+  <body>
+      <h2>Cadastro de Joias</h2>
+      <form action="processar" method="post">
+          <label for="id_imagem">ID da Imagem:</label><br>
+          <input type="text" id="id_imagem" name="id_imagem"><br><br>
 
-<div class="container">
-  <h1>Spotify-like Image Gallery</h1>
-  <div class="gallery">
-    <img src="https://via.placeholder.com/250" alt="Image 1">
-    <img src="https://via.placeholder.com/250" alt="Image 2">
-    <img src="https://via.placeholder.com/250" alt="Image 3">
-    <img src="https://via.placeholder.com/250" alt="Image 4">
-    <img src="https://via.placeholder.com/250" alt="Image 5">
-    <img src="https://via.placeholder.com/250" alt="Image 6">
-    <!-- Adicione mais imagens conforme necessário -->
-  </div>
-</div>
-
-</body>
-</html>
+          <label for="posicao">Nome:</label><br>
+          <input type="text" id="nome" name="nome"><br><br>
+          
+          <label for="posicao">Posição no Campo:</label><br>
+          <input type="text" id="posicao" name="posicao"><br><br>
+          
+          <label for="data_contrato">Data de Contrato:</label><br>
+          <input type="date" id="data_contrato" name="data_contrato"><br><br>
+          
+          <label for="imagem">Adicione a URL:</label><br>
+          <input type="text" id="imagem" name="imagem"><br><br>
+          
+          <input type="submit" value="Cadastrar Imagem">
+      </form>
+  </body>
+  </html>
+  

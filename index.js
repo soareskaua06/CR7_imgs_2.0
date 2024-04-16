@@ -11,20 +11,20 @@ server.listen(3000, () => {
     console.log("O servidor está funcional");
 })
 
-server.get('/', (req, res) => {
+server.get('/jogadores', (req, res) => {
     return res.json({ mensagem: "Estou funcionando!" })
 })
 
 // CRUD DA API
 
 // Create da API
-server.post('/usuarios', (req, res) => {
-    const novoUsuario = req.body
+server.post('/jogadores', (req, res) => {
+    const novoJogador = req.body
 
-    if (!novoUsuario.nome || !novoUsuario.idade || !novoUsuario.curso) {
+    if (!novoJogador.nome || !novoJogador.posicao || !novoJogador.contrato || !novoJogador.url) {
         return res.status(400).json({ mensagem: "Dados incompletos, tente novamente" })
     } else {
-        dados.Usuarios.push(novoUsuario)
+        dados.Jogadores.push(novoJogador)
         salvarDados(dados)
 
         return res.status(201).json({ mensagem: "Dados completos, cadastro feito com sucesso!" })
@@ -32,25 +32,27 @@ server.post('/usuarios', (req, res) => {
 })
 
 // Read da API
-server.get('/usuarios', (req, res) => {
-    return res.json(dados.Usuarios)
+server.get('/jogadores', (req, res) => {
+    return res.json(dados.Jogadores)
 })
 
 // Update da API
-server.put('/usuarios/:id', (req, res) => {
-    const usuarioId = parseInt(req.params.id)
-    const atualizarUser = req.body
+server.put('/jogadores/:id', (req, res) => {
+    const jogadorId = parseInt(req.params.id)
+    const atualizarJogador = req.body
 
-    const indiceUsuario = dados.Usuarios.findIndex(u => u.id === usuarioId)
+    const indiceJogador = dados.Jogadores.findIndex(u => u.id === jogadorId)
 
-    if (indiceUsuario === -1) {
-        return res.status(404).json({ mensagem: "Usuário não encontrado" })
+    if (indiceJogador === -1) {
+        return res.status(404).json({ mensagem: "Jogador não encontrado" })
     } else {
-        dados.Usuarios[indiceUsuario].nome = atualizarUser.nome || dados.Usuarios[indiceUsuario].nome
+        dados.Jogadores[indiceJogador].nome = atualizarJogador.nome || dados.Jogadores[indiceJogador].nome
         
-        dados.Usuarios[indiceUsuario].idade = atualizarUser.idade || dados.Usuarios[indiceUsuario].idade
+        dados.Jogadores[indiceJogador].posicao = atualizarJogador.posicao || dados.Jogadores[indiceJogador].posicao
 
-        dados.Usuarios[indiceUsuario].curso = atualizarUser.curso || dados.Usuarios[indiceUsuario].curso
+        dados.Jogadores[indiceJogador].contrato = atualizarJogador.contrato || dados.Jogadores[indiceJogador].contrato
+
+        dados.Jogadores[indiceJogador].url = atualizarJogador.url || dados.Jogadores[indiceJogador].url
 
         salvarDados(dados)
 
@@ -60,12 +62,12 @@ server.put('/usuarios/:id', (req, res) => {
 
 
 //Delete da API
-server.delete('/usuarios/:id', (req, res) => {
+server.delete('/jogadores/:id', (req, res) => {
     const id = parseInt(req.params.id)
 
     // filtrar os usuarios, removendo pelo id correspondente
 
-    dados.Usuarios = dados.Usuarios.filter(u => u.id !== id)
+    dados.Jogadores = dados.Jogadores.filter(u => u.id !== id)
 
     salvarDados(dados)
 

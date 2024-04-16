@@ -18,6 +18,19 @@ function listUsers() {
         .catch(error => console.error('Erro:', error));
 }
 
+//MODAIS
+
+function adicionarModal(){
+    const modal = document.getElementById("dialogAdd")
+    modal.showModal()
+}
+
+function sairModal(){
+    const modal = document.getElementById("dialogAdd")
+    modal.close()
+}
+
+
 
 
 userForm.addEventListener('submit', async (e) => {
