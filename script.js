@@ -4,14 +4,15 @@ const userForm = document.getElementById('user-form')
 // User List = Mostra os dados do Banco de Dados
 const userList = document.getElementById('user-list')
 
-function listUsers() {
+function listJogadores() {
     fetch('http://localhost:3000/usuarios')
         .then(response => response.json())
         .then(data => {
             userList.innerHTML = '';
-            data.forEach(user => {
+            data.forEach(jogadores => {
                 const li = document.createElement('li');
-                li.innerHTML = `ID: ${user.id} - Nome: ${user.nome} - Idade: ${user.idade} - Curso: ${user.curso}`;
+                li.innerHTML =`<img src="${user.image}"> </img>
+                <p>ID: ${jogadores.id} - Nome: ${jogadores.nome} Posicao - : ${jogadores.posicao} - Contrato: ${jogadores.contrato}</p>`;
                 userList.appendChild(li);
             });
         })
@@ -38,26 +39,28 @@ userForm.addEventListener('submit', async (e) => {
 
     try {
         const userId = await getNextUserId(); // Obtém o próximo ID disponível
-        const name = document.getElementById('name').value;
-        const age = document.getElementById('age').value;
-        const course = document.getElementById('course').value;
+        const nome = document.getElementById('nome').value;
+        const posicao = document.getElementById('posicao').value;
+        const contrato = document.getElementById('contarto').value;
+        const url = document.getElementById('url').value;
 
         // Enviando os dados para o servidor
-        fetch('http://localhost:3000/usuarios', {
+        fetch('http://localhost:3000/jogadores', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
                     id: userId,
-                    nome: name,
-                    idade: age,
-                    curso: course
+                    nome: nome,
+                    posicao: posicao,
+                    contrato: contrato,
+                    url : url
                 }),
             })
             .then(response => response.json())
             .then(() => {
-                listUsers();
+                listJogadores();
                 userForm.reset();
             })
             .catch(error => console.error('Erro:', error));
@@ -94,9 +97,9 @@ async function getNextUserId() {
     try {
         const response = await fetch('http://localhost:3000/usuarios');
         const data = await response.json();
-        const numberOfUsers = data.length;
-        const nextUserId = numberOfUsers + 1;
-        return nextUserId;
+        const numberOfJogadores = data.length;
+        const nextJogadorId = numberOfJogadores + 1;
+        return nextJogadorId;
     } catch (error) {
         console.error('Erro ao contar usuários:', error);
         throw error; // Você pode querer propagar o erro para que ele seja tratado fora dessa função.
@@ -104,26 +107,28 @@ async function getNextUserId() {
 }
 
 // Adicionando evento de envio para o formulário de edição
-const editUserForm = document.getElementById('edit-user-form');
+const editUserForm = document.getElementById('edit-jogadores-form');
 
 editUserForm.addEventListener('submit', async (e) => {
     e.preventDefault(); // Prevenção padrão de envio do formulário
 
-    const userId = document.getElementById('edit-user-id').value;
-    const newName = document.getElementById('edit-name').value;
-    const newAge = document.getElementById('edit-age').value;
-    const newCourse = document.getElementById('edit-course').value;
+    const userId = document.getElementById('id').value;
+    const newNome = document.getElementById('nome').value;
+    const newPosicao = document.getElementById('posicao').value;
+    const newContrato = document.getElementById('contrato').value;
+    const newUrl = document.getElementById('url').value;
 
     // Enviando os dados atualizados para o servidor
-    fetch(`http://localhost:3000/usuarios/${userId}`, {
+    fetch(`http://localhost:3000/jogadores/${jogadoresId}`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                nome: newName,
-                idade: newAge,
-                curso: newCourse
+                nome: newNome,
+                posicao: newPosicao,
+                contrato: newContrato,
+                url: newUrl
             }),
         })
         .then(response => response.json())
@@ -133,7 +138,4 @@ editUserForm.addEventListener('submit', async (e) => {
         })
         .catch(error => console.error('Erro:', error));
 });
-
-
-
-listUsers()
+listJogadores()

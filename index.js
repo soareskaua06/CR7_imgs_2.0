@@ -74,6 +74,17 @@ server.delete('/jogadores/:id', (req, res) => {
     return res.status(200).json({ mensagem: "Usuario excluido com sucesso!" })
 })
 
+
+function carregarImagem() {
+    const imageUrlInput = document.getElementById('imagem');
+    const imagem = imageUrlInput.value;
+
+    if (imagem.trim() === '') {
+        alert('Por favor, insira um URL válido da imagem.');
+        return;
+    }
+
+}
 // Função que salva os dados
 function salvarDados() {
     fs.writeFileSync(__dirname + '/dados.json', JSON.stringify(dados, null, 2))
